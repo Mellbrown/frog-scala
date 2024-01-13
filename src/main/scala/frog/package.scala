@@ -1,10 +1,13 @@
 import scala.annotation.targetName
+import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 import scala.language.{implicitConversions, postfixOps}
 
 package object frog {
   type Atomic = String | Int | Double | Boolean
-  type Compound = Atom | Term | Anything | Question with Questionable
+  type Compound = Atom | Term | Anything | Question | ShareVariable with Questionable
+  type Goal = Question | AndQuestions
+
   implicit def Atomics2Compounds(lst: List[Atomic | Compound]): List[Compound] = {
     lst.map {
       case a: Atomic => new Atom(a)
@@ -41,20 +44,37 @@ package object frog {
     val compounds: Compound*
   ) extends Questionable {
 
+    def && (term: Term): AndTerms = AndTerms(List(this, term))
     override def ? : Question = Question(predicate(compounds.map { compound => compound.? }*))
     override def toString: String = s"$predicate(${compounds.mkString(", ")})"
   }
 
+  class AndTerms(val andTerms: List[Term]) {
+    def && (term: Term): AndTerms = AndTerms(andTerms :+ term)
+
+    def ? : AndQuestions = new AndQuestions(andTerms map(term => term?))
+    override def toString: String = andTerms.mkString(", ")
+  }
   class Anything extends Questionable {
     override def ? : Question = Question(this)
 
     override def toString: String = "*"
   }
 
+
+  class ShareVariable(val name: String) extends Questionable {
+
+    override def toString: String = s"$$$name"
+    override def ? : Question = Question(this)
+  }
+
+  def $ (name: String) : ShareVariable = new ShareVariable(name)
+
   class Question (
     var bind: Compound = Anything()
   ) extends Questionable {
 
+    def && (question: Question): AndQuestions = AndQuestions(List(this, question))
     override def ? : Question = this
     override def toString: String = s"$bind?"
   }
@@ -66,7 +86,11 @@ package object frog {
   def ? : Question = Question()
 
   implicit class Facts(val facts: List[Compound] = List()) {
-    def solve (question: Question): Facts = Solver(this, question) solve
+    def solve (goal: Goal): Facts = {
+      goal match
+        case question: Question => QuestionSolver(this, question) solve
+        case andQuestions: AndQuestions => AndQuestionSolver(this, andQuestions) solve
+    }
     override def toString: String = "Facts:\n - " + facts.mkString("\n - ")
   }
 
@@ -94,7 +118,13 @@ package object frog {
 
   }
 
-  class Solver (
+  class AndQuestions(val andQuestions: List[Question]) {
+    def && (question: Question): AndQuestions = AndQuestions(andQuestions :+ question)
+    def ? : AndQuestions = this
+    override def toString: String = andQuestions.mkString(", ")
+  }
+
+  class QuestionSolver(
     val facts: Facts,
     val question: Question
   ) {
@@ -125,7 +155,82 @@ package object frog {
         )
         case anything: Anything => explicit_facts
         case question: Question => explicit_facts.solve(question)
-        case _ => Facts()
+        case shareVariable: ShareVariable => explicit_facts
+    }
+  }
+
+  implicit class VariableResult(val results: List[Map[String, Compound]]) {
+
+    override def toString: String = {
+      results.head.keys.map(o => s"$$$o").mkString("\t") + "\n" +
+      results.map(map0 => map0.toList.map((key, value) => value).mkString("\t")).mkString("\n")
+    }
+  }
+  class VariablePicker(
+    val facts: Facts,
+    val question: Question
+  ) {
+    def pick : List[Map[String, Compound]] = {
+      question.bind match
+        case shareVariable: ShareVariable =>
+          QuestionSolver(facts, * ?).solve.facts.map(
+            compound => Map(shareVariable.name -> compound)
+          )
+        case question: Question => VariablePicker(facts, question) pick
+        case anything: Anything => List()
+        case term: Term =>
+          QuestionSolver(facts, Term(
+            term.predicate,
+            term.compounds.map {
+              case _: ShareVariable => *
+              case compound => compound
+            }*
+          ) ? ).solve.facts
+            .filter { o => o.isInstanceOf[Term] }
+            .map {
+              case term0: Term => term.compounds
+                .zipWithIndex.map((compound, index) => (compound, term0.compounds(index)))
+                .filter((compound0, compound1) => {
+                  compound0 match
+                    case shareVariable: ShareVariable => true
+                    case question: Question => question.bind.isInstanceOf[ShareVariable]
+                    case _ => false
+                })
+                .foldLeft(mutable.Map[String, Compound | Null]())((map0, pair) => {
+                  val share = pair._1 match {
+                    case shareVariable: ShareVariable => shareVariable
+                    case question: Question => question.bind
+                    case compound => compound
+                  }
+                  val compound = pair._2
+                  share match
+                    case share: ShareVariable =>
+                      if (map0.contains(share.name)) {
+                        if (map0.get(share.name) != compound) {
+                          map0.put(share.name, null)
+                        }
+                      } else {
+                        map0.put(share.name, compound)
+                      }
+                    case _ =>
+                  map0
+                }).filter { case (_, value) => value != null }.toMap
+
+              case _ => Map()
+            }.filter(o => o.nonEmpty)
+
+        case atom: Atom => List()
+    }
+  }
+
+  class AndQuestionSolver(
+     val facts: Facts,
+     val andQuestions: AndQuestions
+  ) {
+    def solve :Facts = {
+
+
+      facts
     }
   }
 }

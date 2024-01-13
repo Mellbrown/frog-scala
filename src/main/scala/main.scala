@@ -6,7 +6,7 @@ import scala.language.{implicitConversions, postfixOps}
 @main
 def main(): Unit = {
 
-  println(
+  val facts =
     <<
       - "Person"("A")
       - "Person"("B")
@@ -15,10 +15,12 @@ def main(): Unit = {
       - "Friend"("B", "D")
       - "Friend"("C", *)
     >> Facts()
-    solve "Friend"("C", *).?
-  )
 
-  val t = "together"("Person"(*), "Person"("B")).?
-  println(t)
+//  println(VariableResult(List(Map("A"->$("B")))))
+  val result: VariableResult = VariablePicker(facts, "Friend"($("A"), $("B"))?).pick
+  println(result)
+
+//  val t = "Relate"("A", "B") && "Relate"("B", "C") ?;
+//  println(t)
 
 }
