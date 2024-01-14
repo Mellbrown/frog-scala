@@ -159,7 +159,7 @@ package object frog {
     }
   }
 
-  implicit class VariableResult(val results: List[Map[String, Compound]]) {
+  implicit class VariableResult(val results: List[Map[String, Compound]] = List()) {
 
     override def toString: String = {
       results.head.keys.map(o => s"$$$o").mkString("\t") + "\n" +
@@ -186,37 +186,43 @@ package object frog {
               case compound => compound
             }*
           ) ? ).solve.facts
-            .filter { o => o.isInstanceOf[Term] }
+//            .filter { o => o.isInstanceOf[Term] }
             .map {
-              case term0: Term => term.compounds
-                .zipWithIndex.map((compound, index) => (compound, term0.compounds(index)))
-                .filter((compound0, compound1) => {
-                  compound0 match
-                    case shareVariable: ShareVariable => true
-                    case question: Question => question.bind.isInstanceOf[ShareVariable]
-                    case _ => false
-                })
-                .foldLeft(mutable.Map[String, Compound | Null]())((map0, pair) => {
-                  val share = pair._1 match {
-                    case shareVariable: ShareVariable => shareVariable
-                    case question: Question => question.bind
-                    case compound => compound
-                  }
-                  val compound = pair._2
-                  share match
-                    case share: ShareVariable =>
-                      if (map0.contains(share.name)) {
-                        if (map0.get(share.name) != compound) {
-                          map0.put(share.name, null)
+              case term0: Term => {
+                val map_ = term.compounds
+                  .zipWithIndex.map((compound, index) => (compound, term0.compounds(index)))
+                  .filter((compound0, compound1) => {
+                    compound0 match
+                      case shareVariable: ShareVariable => true
+                      case question: Question => question.bind.isInstanceOf[ShareVariable]
+                      case _ => false
+                  })
+                  .foldLeft(mutable.Map[String, Compound | Null]())((map0, pair) => {
+                    val share = pair._1 match {
+                      case shareVariable: ShareVariable => shareVariable
+                      case question: Question => question.bind
+                      case compound => compound
+                    }
+                    val compound = pair._2
+                    share match
+                      case share: ShareVariable =>
+                        if (map0.contains(share.name)) {
+                          if (map0.get(share.name) != compound) {
+                            map0.put(share.name, null)
+                          }
+                        } else {
+                          map0.put(share.name, compound)
                         }
-                      } else {
-                        map0.put(share.name, compound)
-                      }
-                    case _ =>
-                  map0
-                }).filter { case (_, value) => value != null }.toMap
-
-              case _ => Map()
+                      case _ =>
+                    map0
+                  }).filter { case (_, value) => value != null }
+//                if (map_.nonEmpty) {
+//                  map_.put("Fact", term0)
+//                }
+                map_.put("Fact", term0)
+                map_.toMap
+              }
+              case compound => Map("Fact" -> compound)
             }.filter(o => o.nonEmpty)
 
         case atom: Atom => List()
@@ -228,8 +234,32 @@ package object frog {
      val andQuestions: AndQuestions
   ) {
     def solve :Facts = {
-
-
+      andQuestions.andQuestions
+        .map(question => VariablePicker(facts, question) pick)
+        .reduce((results0, results1) => {
+          results0.results.map(result0 => {
+            results1.results.map(result1 => {
+              result0
+                .filter((key, _) => key != "Fact")
+                .foldLeft(mutable.Map[String, Compound | Null]())((result2, item) => {
+                  val key = item._1
+                  val value = item._2
+                  if (value == null) {
+                    // pass
+                  } else if (result1.contains(key)) {
+                    if (value == result1.get(key)) {
+                      // pass
+                    } else {
+                      result2.put(key, null)
+                    }
+                  } else {
+                    result2.put(key, value)
+                  }
+                  result2
+                }).put("Fact", result0.get("Fact") && result1.get("Fact")).toMap
+            })
+          })
+        })
       facts
     }
   }
