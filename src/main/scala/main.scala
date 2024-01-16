@@ -14,10 +14,10 @@ def main(): Unit = {
      + "Friend"("B", "E")
      + "Friend"("A", "B")
      + "Friend"("B", "C")
-    <+>? ("Friend"("A"?, "B"?) && "Cat"("B"?))
+    <+>? ("Friend"("A"?, "B"?) && "C"?("B"?))
 //    <+>? ("Friend"("A"?, "B"?) && "Cat"("B"?))
 
   println(fact)
 
-  println("Friend"("A"?, "B"?) && "Cat"("B"?))
+  println("Friend"("A"?, "B"?) && "What"?("B"?))
 }

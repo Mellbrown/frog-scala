@@ -1,7 +1,7 @@
 package frog
 
 class Solving(
-  val bind: Map[What, Compound | Null],
+  val bind: Map[WhatWant, Compound | Null],
   val goal: Goal
 ) extends Solver {
 

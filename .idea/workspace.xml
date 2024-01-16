@@ -4,20 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3b962b8-11ea-4b20-9865-e25d681add26" name="Changes" comment="feat: refactor">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Solutions.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Solved.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Solver.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Solving.scala" afterDir="false" />
+    <list default="true" id="c3b962b8-11ea-4b20-9865-e25d681add26" name="Changes" comment="feat: and goal">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/WhatTerm.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/WhatWant.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/AndGoal.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/AndGoal.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Atom.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Atom.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Compound.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Compound.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Facts.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Facts.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Goal.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Goal.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Predicate.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Predicate.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Proved.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Proved.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Prover.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Prover.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Proving.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Proving.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Solved.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Solved.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Solver.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Solver.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Solving.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Solving.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Term.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Term.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/frog/What.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/What.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/frog/package.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/package.scala" afterDir="false" />
@@ -154,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705297261242</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: and goal">
+      <option name="closed" value="true" />
+      <created>1705389940369</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1705389940369</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -174,7 +180,8 @@
     <MESSAGE value="feat: share var" />
     <MESSAGE value="feat: fail" />
     <MESSAGE value="feat: refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: refactor" />
+    <MESSAGE value="feat: and goal" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: and goal" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -6,6 +6,10 @@ package object frog {
   def <+> : List[Proved] = List()
   implicit class StringExtension(val string: String) {
     def ? : What = What(string)
+
+    def apply(compounds: Compound*): Term = Term(Predicate(string), compounds *)
+
+    def ~* : frog.Predicate = Predicate(string)
   }
   implicit def oneToMany[T](one:T): List[T] = List(one)
   implicit def provedToFacts(proved: Proved): Facts = Facts(proved)

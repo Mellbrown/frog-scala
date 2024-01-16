@@ -1,6 +1,8 @@
 package frog
 
-implicit class Facts (val facts: List[Proved] = List()){
+implicit class Facts (
+   val facts: List[Proved] = List()
+){
   def + (compound: Compound) : Facts = Facts(facts :+ compound.proved)
   def <+>? (goal: Goal): Solutions = this.solve(goal)
   def solve (goal: Goal): Solutions = goal.solveFrom(this)
