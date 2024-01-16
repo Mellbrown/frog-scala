@@ -6,6 +6,7 @@ implicit class Predicate (val predicate: String) {
   override def equals(obj: Any): Boolean = {
     obj match
       case predicate0: Predicate => predicate == predicate0.predicate
+      case string: String => predicate == string
       case _ => false
   }
 

@@ -1,6 +1,6 @@
 package frog
 
-trait Compound {
-  def proveFrom(facts: frog.Facts): frog.Facts
-  implicit def proved : Proved
+trait Compound extends Goal {
+  implicit def proved: Proved = Proved(Map(), this)
+  
 }

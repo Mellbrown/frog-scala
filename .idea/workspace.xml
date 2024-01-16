@@ -4,17 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3b962b8-11ea-4b20-9865-e25d681add26" name="Changes" comment="feat: fail">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Atom.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Compound.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Facts.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Predicate.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Proved.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Term.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/What.scala" afterDir="false" />
+    <list default="true" id="c3b962b8-11ea-4b20-9865-e25d681add26" name="Changes" comment="feat: refactor">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/AndGoal.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Goal.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Prover.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/frog/Proving.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/scala_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scala_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/package.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/package.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Atom.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Atom.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Compound.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Compound.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Facts.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Facts.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Predicate.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Predicate.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Proved.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Proved.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/Term.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/Term.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/frog/What.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/frog/What.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,20 +56,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;scala_project_settings_configurable.last_selected_tab_index&quot;: &quot;0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.scala.settings.ScalaProjectSettingsConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "scala_project_settings_configurable.last_selected_tab_index": "2",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.scala.compiler.ScalaCompileServerForm"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="frog" />
     </key>
   </component>
   <component name="RunManager">
@@ -85,9 +91,6 @@
   </component>
   <component name="ScalaProjectSettings">
     <option name="compilerHighlightingScala2" value="true" />
-    <option name="customScalatestSyntaxHighlighting" value="true" />
-    <option name="includeBlockExpressions" value="true" />
-    <option name="includeLiterals" value="true" />
     <option name="intInjectionMapping">
       <map>
         <entry key="html" value="HTML" />
@@ -103,8 +106,8 @@
       </map>
     </option>
     <option name="scala3DisclaimerShown" value="true" />
-    <option name="showArgumentsToByNameParams" value="true" />
     <option name="showImplicitConversions" value="true" />
+    <option name="useCompilerRanges" value="false" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -139,7 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705213836444</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: refactor">
+      <option name="closed" value="true" />
+      <created>1705297261242</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705297261242</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -158,7 +169,8 @@
     <MESSAGE value="feat: lookup" />
     <MESSAGE value="feat: share var" />
     <MESSAGE value="feat: fail" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: fail" />
+    <MESSAGE value="feat: refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: refactor" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

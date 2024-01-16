@@ -6,11 +6,9 @@ class What(
 
   override def proveFrom(facts: Facts): Facts = 
     facts.facts.map(fact => Proved(
-      Map(this -> fact.proved),
-      fact.proved
+      Map(this -> fact.goal),
+      fact.goal
     ))
-
-  override implicit def proved: Proved = Proved(Map(), this)
   
   override def equals(obj: Any): Boolean = {
     obj match
