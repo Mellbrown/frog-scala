@@ -6,8 +6,8 @@ class What(
 
   override def proveFrom(facts: Facts): Facts = 
     facts.facts.map(fact => Proved(
-      Map(this -> fact.goal),
-      fact.goal
+      Map(this -> fact.compound),
+      fact.compound
     ))
   
   override def equals(obj: Any): Boolean = {
@@ -17,5 +17,6 @@ class What(
   }
   override def toString: String = s"$name?"
 
+  override def hashCode(): Int = if (name != "") name.hashCode else super.hashCode
   
 }

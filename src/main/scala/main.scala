@@ -8,10 +8,16 @@ def main(): Unit = {
      + "Person"("A")
      + "Person"("B")
      + "Person"("C")
+     + "Cat"("D")
+     + "Cat"("E")
+     + "Friend"("A", "D")
+     + "Friend"("B", "E")
      + "Friend"("A", "B")
      + "Friend"("B", "C")
-     + "Friend"("A", "A")
-    <+>? "Friend"("who"?, "who"?)
+    <+>? ("Friend"("A"?, "B"?) && "Cat"("B"?))
+//    <+>? ("Friend"("A"?, "B"?) && "Cat"("B"?))
 
   println(fact)
+
+  println("Friend"("A"?, "B"?) && "Cat"("B"?))
 }

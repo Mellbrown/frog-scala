@@ -8,8 +8,9 @@ package object frog {
     def ? : What = What(string)
   }
   implicit def oneToMany[T](one:T): List[T] = List(one)
-  implicit def provedToFact(proved: Proved): Facts = Facts(proved)
-  implicit def compoundToFact(compound: Compound): Facts = compound.proved
+  implicit def provedToFacts(proved: Proved): Facts = Facts(proved)
+  implicit def compoundToFacts(compound: Compound): Facts = compound.proved
+  implicit def FactsToSolutions(facts: Facts): Solutions = facts.facts.map(fact => fact.toSolver)
 //  implicit def compoundToFact(compound: Compound): Facts = Facts(compound)
 //  implicit def mutableList[T](immutableList: List[T]): mutable.ListBuffer[T] = mutable.ListBuffer[T](immutableList*)
 //  implicit def immutableList[T](mutableList: mutable.ListBuffer[T]): List[T] = mutableList.toList

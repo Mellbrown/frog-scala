@@ -1,19 +1,15 @@
 package frog
 
 trait Goal {
-
   def &&(goal: Goal): AndGoal = {
     def goals(goal: Goal): Seq[Goal] = {
       goals match
         case andGoal: AndGoal => andGoal.goals
-        case goal: Goal => Seq(goal)
+        case _ => Seq(goal)
     }
 
     AndGoal(goals(this) ++ goals(goal) *)
   }
-  def proveFrom(facts: frog.Facts): frog.Facts
-}
 
-object Goal {
-  
+  def solveFrom(facts: frog.Facts): Solutions
 }

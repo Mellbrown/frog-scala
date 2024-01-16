@@ -8,13 +8,13 @@ class Term (
 ) extends Compound {
   override def proveFrom(facts: Facts): Facts = {
     facts.facts.filter(proved => {
-      proved.goal match
+      proved.compound match
         case term: Term =>
           predicate == term.predicate &&
             compounds.length == term.compounds.length
         case _ => false
     }).flatMap(proved => {
-      proved.goal match
+      proved.compound match
         case term: Term =>
           compounds.zipWithIndex.map(
             (compound, index) => compound.proveFrom(term.compounds(index)).facts
